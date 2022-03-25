@@ -5,7 +5,7 @@ import java.util.List;
 public class Depot {
 	private Vehicle vehicle;
 	private Driver driver;
-	private Workschedule workschedule;
+	private WorkSchedule workschedule;
 	private String depotArea;
 	
 	private ArrayList<Driver> drivers = new ArrayList<Driver>();
