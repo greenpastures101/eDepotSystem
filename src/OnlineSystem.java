@@ -15,82 +15,11 @@ public class OnlineSystem {
 		new OnlineSystem().logInMenu();
 
 	}
-
 	
-	public static ArrayList<Driver> drivers = new ArrayList<>();
-	Scanner console = new Scanner(System.in);
-	
-	
-	
-//	private static void getDrivers() throws FileNotFoundException {
-//		 Scanner file = new Scanner(new File("/Users/adamal-najjar/Desktop/OO CW/csvfile_oo.csv"));
-//		 file.useDelimiter(",");
-	
-//	file = new BufferedReader(new FileReader("/Users/adamal-najjar/Desktop/OO CW/csvfile_oo.csv"))
-	
-	//importing csv file that needs to be parsed.
-	String fileToParse = "/Users/adamal-najjar/Desktop/OO CW/csvfile_oo.csv";
-	BufferedReader fileReader = null;
-	
-	//delimiter
-	final String DELIMITER = ",";
-	
-	try
-	{
-		String line = " ";
-		// Create the file reader
-		fileReader = new BufferedReader(new FileReader(fileToParse));
-		
-		//read the file line by line
-		 while ((line = fileReader.readLine()) != null) 
-		 {
-			 String[] tokens = line.split(DELIMITER);
-			 for (String token : tokens)
-			 {
-				 //print all tokens
-				 System.out.println(token);
-			 }
-			 
-		 }
-	}
-	catch (Exception e) {
-		e.printStackTrace();
-	}
-	finally
-    {
-        try {
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-	
-		
-		
-		
-//		while (file.hasNext()) {
-//			Driver driverData = new Driver(
-//					file.next(), 
-//					file.next(), 
-//					file.next(), 
-//					file.next(),
-//					file.nextBoolean(), 
-//					file.nextBoolean());
-//			drivers.add(driverData);
-//			
-//		}
-//		for (Driver driver : drivers) {
-//		 //System.out.println(drivers.toString());
-//		}
-//	
-//	}
-//	
-	
-	private final String PATH =
+	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\csvfile_oo.csv";
 	public final Scanner S = new Scanner(System.in);
 	private Driver driver;
+	private Depot depot;
 	
 	public void logInMenu() throws Exception {
 		String choice;
@@ -113,7 +42,36 @@ public class OnlineSystem {
 	}
 	
 	public void logIn() throws Exception {
+		driver = null;
+		String username;
+		String password;
+		boolean exit = false;
+		boolean match = false;
 		
+		do {
+			System.out.println("Enter username: ");
+			username = S.nextLine();
+			
+			System.out.println("Enter password: ");
+			password = S.nextLine();
+			if (depot.verify(username.trim(), password.trim())) {
+				//driver = depot.getDrivers(username);
+				exit = true;
+				match = true;
+				break;
+			} if (!match) {
+				System.out.print("Incorrect username or password!");
+			}
+			
+		} while (!exit);
+		mainMenu();
+	}
+	
+	private void mainMenu () throws Exception {
+		String choice;
+		
+		System.out.println("test");
+		choice = S.nextLine();
 	}
 
 }
