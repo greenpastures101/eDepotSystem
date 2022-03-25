@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -19,6 +20,7 @@ public class OnlineSystem {
 	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\csvfile_oo.csv";
 	public final Scanner S = new Scanner(System.in);
 	private Driver driver;
+	private List<Depot> depots = new ArrayList<Depot>();
 	private Depot depot;
 	
 	public void logInMenu() throws Exception {
@@ -39,34 +41,13 @@ public class OnlineSystem {
 			}
 		} while (!choice.equals("2"));
 		S.close();
+		System.exit(0);
 	}
 	
 	public void logIn() throws Exception {
-		driver = null;
-		String username;
-		String password;
-		boolean exit = false;
-		boolean match = false;
+
 		
-		do {
-			System.out.println("Enter username: ");
-			username = S.nextLine();
-			
-			System.out.println("Enter password: ");
-			password = S.nextLine();
-			if (depot.verify(username.trim(), password.trim())) {
-				//driver = depot.getDrivers(username);
-				exit = true;
-				match = true;
-				break;
-			} if (!match) {
-				System.out.print("Incorrect username or password!");
-			}
-			
-		} while (!exit);
-		mainMenu();
-	}
-	
+}
 	private void mainMenu () throws Exception {
 		String choice;
 		

@@ -19,9 +19,9 @@ public class Depot {
 	}
 	
 	// Verifying the correct login details are entered--------------------------------------------------------
-	public boolean verify(String username, String password) {
+	public boolean verify(String uName, String pWord) {
 		for (Driver driver : drivers) {
-			if (username.equals(driver.userName) && password.equals(driver.passWord)) {
+			if (uName.equals(driver.userName) && pWord.equals(driver.passWord)) {
 				System.out.println("Successful Login");
 				return true;
 			}
@@ -86,6 +86,19 @@ public class Depot {
 	// Allows us to add a driver to the system----------------------------------------------------------------
 	public void addDriver(Driver driver) {
 		drivers.add(driver);
+	}
+	
+	public Driver getDriver() {
+		return driver;
+	}
+	
+	public Driver getDriver(String username) {
+		for (Driver driver : drivers) {
+			if (username.equals(driver.userName)) {
+				return driver;
+			}
+		}
+		return null;
 	}
 	
 	public String getDepotArea() {
