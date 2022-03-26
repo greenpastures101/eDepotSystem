@@ -277,6 +277,17 @@ public class OnlineSystem {
 			System.out.println("Invalid or unavailable driver!")
 		}
 	}
+	
+	public void assignVehicle(Driver driver, WorkSchedule ws) {
+		boolean exit = false;
+		if (depot.getVehicles().isEmpty() && depot.getUnassignedVehicles().isEmpty()) {
+			System.out.println("No vehicles found!");
+			return;
+		}
+		do {
+			depot.Un
+		}
+	}
 	// This method allows us to add a new driver to the system--------------------------------------------
 	public void addDriver() {
 		String name;
@@ -333,6 +344,30 @@ public class OnlineSystem {
 				System.out.println("Invalid date entered!");
 			}
 		} while (true);
+	}
+	
+	public void sortSchedule() {
+		
+	}
+	
+	public void reAssignVehicle() {
+		
+	}
+	
+	public void addVehicle() throws Exception {
+		
+	}
+	
+	public void isUserNameUnique(String userName) {
+		ArrayList<Driver> drivers;
+		for (Depot depot : depots) {
+			drivers = depot.getDrivers();
+			for (Driver d : drivers) {
+				if (userName.equals(d.userName)) {
+					return false;
+				}
+			}
+		} return true;
 	}
 	
 

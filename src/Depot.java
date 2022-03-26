@@ -68,6 +68,15 @@ public class Depot {
 		return vehicles;
 	}
 	
+	public ArrayList(Vehicle> getUnassignedVehicles() {
+		ArrayList<Vehicle> unAssignedVehicles = new ArrayList<>();
+		for (Vehicle v : vehicles) {
+			if (v.unAssignedVehicles.getDriver() == null && v.getSchedule() == null) {
+				unAssignedVehicles.add(v);
+			}
+		} return unAssignedVehicles;
+	}
+	
 	//-----DRIVER SECTION-------------------------------------------------------------------------------------
 	// Lists all the drivers in the system--------------------------------------------------------------------
 	public void driverList() {
