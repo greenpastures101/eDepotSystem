@@ -23,18 +23,18 @@ public class OnlineSystem {
 		// TODO Auto-generated method stub
 		new OnlineSystem().logInMenu();
 		//new OnlineSystem().mainMenu();
+		String fileName = "depotInfo.ser";
 	}
 	
 	public OnlineSystem() throws Exception {
 		deSerialize();
 		
-		
-		//setDepot("Liverpool");
-		depots.add(new Depot("Lpool"));
+		//depots.add(new Depot("Lpool"));
+		//depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("Lpool")));
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
-	//private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\csvfile_oo.csv";
+	//private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\main\\java\\";
 	
 	// FIRST ATTEMPT AT FILE REFERENCING----------------------------------------------------------------------
 	String fileToParse = "csvfile_oo.csv";
@@ -97,6 +97,7 @@ public class OnlineSystem {
 	private Driver driver;
 	private List<Depot> depots = new ArrayList<Depot>();
 	private Depot depot;
+	private int depotNo = 0;
 	
 	// Initial menu-------------------------------------------------------------------------------------------
 	public void logInMenu() throws Exception {
@@ -636,7 +637,7 @@ public class OnlineSystem {
 	private void serialize() {
 		ObjectOutputStream oos;
 		try {
-			oos = new ObjectOutputStream (new FileOutputStream("csvfile_oo.csv"));
+			oos = new ObjectOutputStream (new FileOutputStream("depotInfo.ser"));
 			oos.writeObject(depots);
 			oos.close();
 		} catch (Exception e) {
@@ -647,7 +648,7 @@ public class OnlineSystem {
 	private void deSerialize() {
 		ObjectInputStream ois;
 		try {
-			ois = new ObjectInputStream (new FileInputStream("csvfile_oo.csv"));
+			ois = new ObjectInputStream (new FileInputStream("depotInfo.ser"));
 			depots = (List<Depot>)ois.readObject();
 			ois.close();
 		} catch (Exception e) {
