@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/depots.ser</name>
+			<type>1</type>
+			<location>C:/Users/katec/eclipse-workspace-OOSD/OOSD CW Two/src/depots.ser</location>
+		</link>
+	</linkedResources>
 </projectDescription>

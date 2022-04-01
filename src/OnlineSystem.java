@@ -23,75 +23,22 @@ public class OnlineSystem {
 		// TODO Auto-generated method stub
 		new OnlineSystem().logInMenu();
 		//new OnlineSystem().mainMenu();
-		String fileName = "depotInfo.ser";
 	}
-	
 	public OnlineSystem() throws Exception {
 		deSerialize();
 		
-		//depots.add(new Depot("Lpool"));
-		//depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("Lpool")));
+		depots.add(new Depot("LPool"));
+		depots.add(new Depot("Leeds"));
+		depots.add(new Depot("MChester"));
+		depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("LPool")));
+		depots.get(2).addDriver(new Driver("Sorren", "sorren1",false, true, getDepot("MChester")));
+		depots.get
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
-	//private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\main\\java\\";
+	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\";
 	
-	// FIRST ATTEMPT AT FILE REFERENCING----------------------------------------------------------------------
-	String fileToParse = "csvfile_oo.csv";
-	BufferedReader fileReader = null;
-	final String DELIMITER =","; {
-		try {
-			String line = " ";
-			fileReader = new BufferedReader(new FileReader(fileToParse));
-			
-			while ((line = fileReader.readLine()) != null) {
-				String[] tokens = line.split(DELIMITER);
-				
-				for(String token : tokens) {
-					System.out.println(token);
-				}
-			}
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			
-			try {
-				fileReader.close();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	// SECOND ATTEMPT AT FILE REFERENCING--------------------------------------------------------------------
-	/*static ArrayList<Driver> driversArray = new ArrayList<Driver>();
-	public static void loadDrivers() throws Exception {
-		Driver drivers = new Driver(null, null, false, false, null);
-		FileReader file = new FileReader("C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\csvfile_oo.csv");
-		Scanner readFile = new Scanner(file);
-		int index = 0;
-		
-		while (readFile.hasNext()) {
-			String userName = readFile.next();
-			String passWord = readFile.next();
-			boolean assigned = readFile.nextBoolean();
-			boolean isManager = readFile.nextBoolean();
-			String depotID = readFile.next();
-			
-			driversArray.add(new Driver (userName, passWord, assigned, isManager, depotID));
-			driversArray[index] = new Driver(userName, passWord, assigned, isManager, depotID);
-			index++;
-		}
-		for (int = 0; i < driversArray.length; i++) {
-			System.out.println(rooms[i].toString());
-		}
-		System.out.println(driversArray);
-		readFile.close();
-	}*/
-	
+
 	// Scanner------------------------------------------------------------------------------------------------
 	public final Scanner S = new Scanner(System.in);
 	private Driver driver;
@@ -134,14 +81,15 @@ public class OnlineSystem {
 			uName = S.nextLine();
 			System.out.println("Please enter your password: ");
 			pWord = S.nextLine();
-			
-			if (depot.verify(uName.trim(), pWord.trim())) {
+			for (depotNo = 0; depotNo < depots.size(); depotNo++) {
+				depot = depots.get(depotNo);
+				if (depot.verify(uName.trim(), pWord.trim())) {
 				driver = depot.getDriver(uName);
 				exit = true;
 				valid = true;
 				break;
 			}
-			if (!valid) {
+			} if (!valid) {
 				System.out.println("Invalid login details");
 			}
 		} while (!exit);
@@ -637,7 +585,8 @@ public class OnlineSystem {
 	private void serialize() {
 		ObjectOutputStream oos;
 		try {
-			oos = new ObjectOutputStream (new FileOutputStream("depotInfo.ser"));
+			
+			oos = new ObjectOutputStream (new FileOutputStream(PATH + "depots.ser"));
 			oos.writeObject(depots);
 			oos.close();
 		} catch (Exception e) {
@@ -648,7 +597,7 @@ public class OnlineSystem {
 	private void deSerialize() {
 		ObjectInputStream ois;
 		try {
-			ois = new ObjectInputStream (new FileInputStream("depotInfo.ser"));
+			ois = new ObjectInputStream (new FileInputStream(PATH + "depots.ser"));
 			depots = (List<Depot>)ois.readObject();
 			ois.close();
 		} catch (Exception e) {
