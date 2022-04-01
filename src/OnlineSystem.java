@@ -23,27 +23,55 @@ public class OnlineSystem {
 		depots.add(new Depot("LPool"));
 		depots.add(new Depot("Leeds"));
 		depots.add(new Depot("MChester"));
-		depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("LPool")));
-		depots.get(2).addDriver(new Driver("Sorren", "sorren1",false, true, getDepot("MChester")));
-		depots.get(1).addDriver(new Driver("Mark", "mark1", false, false, getDepot("Leeds")));
-		depots.get(0).addDriver(new Driver("Kirsty", "kirsty1", true, false, getDepot("LPool")));
-		depots.get(2).addDriver(new Driver("Andy", "andy1", true, false, getDepot("MChester")));
+		depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("LPool"))); // available, manager
+		depots.get(0).addDriver(new Driver("Kirsty", "kirsty1", true, false, getDepot("LPool"))); // available, not manager
+		depots.get(0).addDriver(new Driver("Samwise", "samwise1", false, false, getDepot("LPool"))); // unavailable, not manager
+		depots.get(0).addDriver(new Driver("Smaug", "smaug1", false, false, getDepot("LPool"))); // unavailable, not manager
+		
+		depots.get(1).addDriver(new Driver("Frodo", "frodo1", true, true, getDepot("Leeds"))); // available, manager
+		depots.get(1).addDriver(new Driver("Mark", "mark1", false, false, getDepot("Leeds"))); // unavailable, not manager
+		depots.get(1).addDriver(new Driver("Gandalf", "gandalf1", true, false, getDepot("Leeds"))); // available, not manager
+		depots.get(1).addDriver(new Driver("Legolas", "legolas1", false, false, getDepot("Leeds"))); // unavailable, not manager
+		
+		depots.get(2).addDriver(new Driver("Sorren", "sorren1",false, true, getDepot("MChester"))); // unavailable, manager
+		depots.get(2).addDriver(new Driver("Andy", "andy1", true, false, getDepot("MChester"))); // available, not manager
+		depots.get(2).addDriver(new Driver("Aragorn", "aragorn1", true, false, getDepot("MChester"))); // available, not manager
+		depots.get(2).addDriver(new Driver("Gollum", "gollum1", false, false, getDepot("MChester"))); // not available, not manager
+
+
 		
 		// Adding vehicles
 		Vehicle lPoolTanker = new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol");
 		Vehicle lPoolTanker2 = new Tanker("Tesla", "69", 32000.5, "ET10EVN", getDepot("LPool"), 3100.7, "Rocket Fuel");
-		Vehicle leedsTanker = new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil");
-		Vehicle mChesterTanker = new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel");
 		Vehicle lPoolTruck = new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4);
+		Vehicle lPoolTruck2 = new Truck("Volvo", "HD3", 27000.5, "MN18JJJ", getDepot("LPool"), 4100.6);
+		Vehicle lPoolTruck3 = new Truck("Jaguar", "3X", 30000.8, "DV12NMA", getDepot("LPool"), 5000.5);
+		
+		Vehicle leedsTanker = new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil");
 		Vehicle leedsTruck = new Truck("Farrari", "T7X4000", 37000.1, "II90BLL", getDepot("Leeds"), 4900.7);
+		Vehicle leedsTruck2 = new Truck("Peugeot", "5DS", 17000.3, "TV15ERW", getDepot("Leeds"), 2400.2);
+		
+		Vehicle mChesterTanker = new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel");
+		Vehicle mChesterTanker2 = new Tanker("Audi", "K7", 46000.5, "QW12ERT", getDepot("MChester"), 2100.7, "Petrol");
+		Vehicle mChesterTanker3 = new Tanker("Mercedes", "90V", 20000.4, "TW47FUC", getDepot("MChester"), 3400.0, "Oil");
 		Vehicle mChesterTruck = new Truck("Porsche", "R80", 17000.9, "LN21DMV", getDepot("MChester"), 2600.6);
+		Vehicle mChesterTruck2 = new Truck("Ford", "JX20", 34000.3, "MN19NFJ", getDepot("MChester"), 1700.2);
+		
 		depots.get(0).addVehicle(lPoolTanker);
 		depots.get(0).addVehicle(lPoolTanker2);
-		depots.get(1).addVehicle(leedsTanker);
-		depots.get(2).addVehicle(mChesterTanker);
 		depots.get(0).addVehicle(lPoolTruck);
+		depots.get(0).addVehicle(lPoolTruck2);
+		depots.get(0).addVehicle(lPoolTruck3);
+		
+		depots.get(1).addVehicle(leedsTanker);
 		depots.get(1).addVehicle(leedsTruck);
+		depots.get(1).addVehicle(leedsTruck2);
+		
+		depots.get(2).addVehicle(mChesterTanker);
+		depots.get(2).addVehicle(mChesterTanker2);
+		depots.get(2).addVehicle(mChesterTanker3);
 		depots.get(2).addVehicle(mChesterTruck);
+		depots.get(2).addVehicle(mChesterTruck2);
 	}	
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
@@ -116,8 +144,8 @@ public class OnlineSystem {
 				System.out.println("Welcome! Please select an option: ");
 				System.out.println("1 - Create, Set or View Work Schedule");
 				System.out.println("2 - View, Re-Assign or Add Vehicles");
-				System.out.println("3 - Add Driver to System");
-				System.out.println("4 - View Drivers");
+				System.out.println("3 - View Drivers");
+				System.out.println("4 - Add Driver to System");
 				System.out.println("5 - Quit");
 				System.out.println("Enter option: ");
 				choice = S.nextLine();
@@ -131,10 +159,10 @@ public class OnlineSystem {
 						vehicleOptions();
 						break;
 					case "3":
-						addDriver();
+						depot.driverList();
 						break;
 					case "4":
-						depot.driverList();
+						addDriver();
 						break;
 					case "5":
 						logInMenu();

@@ -51,36 +51,8 @@ public class Depot implements Serializable {
 	
 	// Lists all the vehicles in the system-------------------------------------------------------------------
 	public void vehicleList() {
-		if (!vehicles.isEmpty()) {
-			System.out.printf("%-10s %-10s %-15s %8s %10s %10s %10s %n", "Make", "Model", "Registration", "Depot", "Type", "Driver", "Work Schedule");
-			{
 		for (Vehicle vehicle : vehicles) {
 			System.out.printf("%-10s %-10s %-15s %8s %10s %10s %10s %n", vehicle.make, vehicle.model, vehicle.getRegNo(), vehicle.depot, vehicle.getClass().getName(), vehicle.driver, vehicle.workSchedule);
-		}
-			}
-		} else {
-			System.out.println("no vehicles");
-		}
-	}
-	
-	public void truckList() {
-		if (!vehicles.isEmpty())
-		{
-			System.out.printf("%-10s %-10s %-15s %8s %10s%n", "Make", "Model", "Registration", "Depot", "Type"); // Used to format the print in a table like structure
-			{
-				for (Vehicle vehicle : vehicles)
-				{
-					if (vehicle.getClass().getName().equals("Truck"))
-					{
-						System.out.printf("%-10s %-10s %-15s %8s %10s %n", vehicle.make, vehicle.model,
-							vehicle.regNo, vehicle.depot, vehicle.getClass().getName());
-					}
-				}
-			}
-
-		}else
-		{
-			System.out.println("There is no vehicles currently at this depot");
 		}
 	}
 	
