@@ -27,6 +27,7 @@ public class OnlineSystem {
 	public OnlineSystem() throws Exception {
 		deSerialize();
 		
+		//test
 		// Adding drivers
 		depots.add(new Depot("LPool"));
 		depots.add(new Depot("Leeds"));
@@ -82,6 +83,7 @@ public class OnlineSystem {
 			}
 		} while (!choice.equals("2"));
 		S.close();
+		serialize();
 		System.exit(0);
 	}
 	
