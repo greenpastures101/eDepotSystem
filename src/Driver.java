@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Driver {
+public class Driver implements Serializable {
 	protected String userName;
 	protected String passWord;
 	protected boolean assigned;
@@ -9,14 +10,14 @@ public class Driver {
 	private WorkSchedule sched;
 	
 	// Making constructors------------------------------------------------------------------------------------
-    //public Driver(String userName, String passWord, boolean assigned, boolean isManager) throws Exception {
-    	//this.userName = userName.trim();
-    	//this.passWord = passWord.trim();
-    	//this.assigned = assigned;
-    	//this.isManager = isManager;
-    	//this.sched = null;
-    	//this.depot = null;
-    //}
+    public Driver(String userName, String passWord, boolean assigned, boolean isManager) throws Exception {
+    	this.userName = userName.trim();
+    	this.passWord = passWord.trim();
+    	this.assigned = assigned;
+    	this.isManager = isManager;
+    	this.sched = null;
+    	this.depot = null;
+    }
     
     public Driver(String userName, String passWord, boolean assigned, boolean isManager, Depot area) {
     	this.userName = userName.trim();

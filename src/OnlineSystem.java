@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,6 +27,11 @@ public class OnlineSystem {
 	
 	public OnlineSystem() throws Exception {
 		deSerialize();
+		
+		/*
+		//setDepot("Liverpool");
+		 * 
+		 */
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
@@ -634,7 +637,7 @@ public class OnlineSystem {
 	private void serialize() {
 		ObjectOutputStream oos;
 		try {
-			oos = new ObjectOutputStream (new FileOutputStream(PATH + "csvfile_oo.csv"));
+			oos = new ObjectOutputStream (new FileOutputStream("csvfile_oo.csv"));
 			oos.writeObject(depots);
 			oos.close();
 		} catch (Exception e) {
@@ -645,7 +648,7 @@ public class OnlineSystem {
 	private void deSerialize() {
 		ObjectInputStream ois;
 		try {
-			ois = new ObjectInputStream (new FileInputStream(PATH + "csvfile_oo.csv"));
+			ois = new ObjectInputStream (new FileInputStream("csvfile_oo.csv"));
 			depots = (List<Depot>)ois.readObject();
 			ois.close();
 		} catch (Exception e) {
