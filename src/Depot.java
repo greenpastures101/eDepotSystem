@@ -68,10 +68,11 @@ public class Depot {
 		return vehicles;
 	}
 	
-	public ArrayList(Vehicle> getUnassignedVehicles() {
+	// Gets the unassigned vehicles
+	public ArrayList<Vehicle> getUnassignedVehicles() {
 		ArrayList<Vehicle> unAssignedVehicles = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.unAssignedVehicles.getDriver() == null && v.getSchedule() == null) {
+			if (v.getDriver() == null && v.getWorkSchedule() == null) {
 				unAssignedVehicles.add(v);
 			}
 		} return unAssignedVehicles;
@@ -151,6 +152,11 @@ public class Depot {
 	// Allows us to add a CREATED work schedule to array------------------------------------------------------
 	public void addCreatedSchedule(WorkSchedule ws) {
 		workSchedules.add(ws);
+	}
+	
+	// Allows us to add completed work schedules
+	public void addCompletedSchedule(WorkSchedule ws) {
+		completedSchedules.add(ws);
 	}
 	
 	// Gets COMPLETED schedules-------------------------------------------------------------------------------
