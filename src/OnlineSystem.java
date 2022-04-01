@@ -25,7 +25,7 @@ public class OnlineSystem {
 	//private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\csvfile_oo.csv";
 	
 	// FIRST ATTEMPT AT FILE REFERENCING----------------------------------------------------------------------
-	/*String fileToParse = "/OOSD CW Two/src/csvfile_oo.csv";
+	String fileToParse = "csvfile_oo.csv";
 	BufferedReader fileReader = null;
 	final String DELIMITER =","; {
 		try {
@@ -52,7 +52,7 @@ public class OnlineSystem {
 				e.printStackTrace();
 			}
 		}
-	}*/
+	}
 	
 	// SECOND ATTEMPT AT FILE REFERENCING--------------------------------------------------------------------
 	/*static ArrayList<Driver> driversArray = new ArrayList<Driver>();
