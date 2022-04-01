@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,13 +14,21 @@ import java.util.Scanner;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.nio.file.Files;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class OnlineSystem {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		//new OnlineSystem().logInMenu();
-		new OnlineSystem().mainMenu();
+		new OnlineSystem().logInMenu();
+		//new OnlineSystem().mainMenu();
+	}
+	
+	public OnlineSystem() throws Exception {
+		deSerialize();
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
@@ -619,6 +629,28 @@ public class OnlineSystem {
 				}
 			}
 		} return true;
+	}
+	
+	private void serialize() {
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream (new FileOutputStream(PATH + "csvfile_oo.csv"));
+			oos.writeObject(depots);
+			oos.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private void deSerialize() {
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream (new FileInputStream(PATH + "csvfile_oo.csv"));
+			depots = (List<Depot>)ois.readObject();
+			ois.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 
