@@ -110,8 +110,29 @@ public class OnlineSystem {
 	
 	// Method for log in--------------------------------------------------------------------------------------
 	public void logIn() throws Exception {
-
+		driver = null;
+		String uName;
+		String pWord;
+		boolean exit = false;
+		boolean valid = false;
 		
+		do {
+			System.out.println("Please enter your username: ");
+			uName = S.nextLine();
+			System.out.println("Please enter your password: ");
+			pWord = S.nextLine();
+			
+			if (depot.verify(uName.trim(), pWord.trim())) {
+				driver = depot.getDriver(uName);
+				exit = true;
+				valid = true;
+				break;
+			}
+			if (!valid) {
+				System.out.println("Invalid login details");
+			}
+		} while (!exit);
+		mainMenu();
 	}
 	
 	// Main interface menu, more options for managers---------------------------------------------------------
