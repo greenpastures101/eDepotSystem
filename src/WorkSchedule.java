@@ -1,6 +1,7 @@
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class WorkSchedule {
+public class WorkSchedule implements comparable<WorkSchedule>, Serializable{
 	protected String client;
 	private LocalDate startDate;
 	private LocalDate endDate;
@@ -93,6 +94,10 @@ public class WorkSchedule {
 	// Format------------------------------------------------------------------------------------------------
 	public String toString() {
 		return String.format("%-10s %-10s %12s %8s %16s", client, startDate, endDate, driverAssigned, vehicleAssigned);
+	}
+	
+	public int compareTo(WorkSchedule o) {
+		return 0;
 	}
 	
 	

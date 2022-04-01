@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.io.Serializable;
 
-public class Depot {
+public class Depot implements Serializable {
 	private Vehicle vehicle;
 	private Driver driver;
 	private WorkSchedule workSchedule;
