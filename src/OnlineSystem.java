@@ -32,7 +32,9 @@ public class OnlineSystem {
 		depots.add(new Depot("MChester"));
 		depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("LPool")));
 		depots.get(2).addDriver(new Driver("Sorren", "sorren1",false, true, getDepot("MChester")));
-		
+		depots.get(1).addDriver(new Driver("Mark", "mark1", false, false, getDepot("Leeds")));
+		depots.get(0).addDriver(new Driver("Kirsty", "kirsty1", true, false, getDepot("LPool")));
+		depots.get(2).addDriver(new Driver("Andy", "andy1", true, false, getDepot("MChester")));
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
