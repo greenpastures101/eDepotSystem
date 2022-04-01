@@ -38,13 +38,18 @@ public class OnlineSystem {
 		depots.get(2).addDriver(new Driver("Andy", "andy1", true, false, getDepot("MChester")));
 		
 		// Adding vehicles
-		depots.get(0).addVehicle(new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol"));
-		depots.get(1).addVehicle(new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil"));
-		depots.get(2).addVehicle(new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel"));
-		depots.get(0).addVehicle(new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4));
-		depots.get(1).addVehicle(new Truck("Farrari", "T7X4000", 37000.1, "II90BLL", getDepot("Leeds"), 4900.7));
-		depots.get(2).addVehicle(new Truck("Porsche", "R80", 17000.9, "LN21DMV", getDepot("MChester"), 2600.6));
-		
+		Vehicle lPoolTanker = new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol");
+		Vehicle leedsTanker = new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil");
+		Vehicle mChesterTanker = new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel");
+		Vehicle lPoolTruck = new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4);
+		Vehicle leedsTruck = new Truck("Farrari", "T7X4000", 37000.1, "II90BLL", getDepot("Leeds"), 4900.7);
+		Vehicle mChesterTruck = new Truck("Porsche", "R80", 17000.9, "LN21DMV", getDepot("MChester"), 2600.6);
+		depots.get(0).addVehicle(lPoolTanker);
+		depots.get(1).addVehicle(leedsTanker);
+		depots.get(2).addVehicle(mChesterTanker);
+		depots.get(0).addVehicle(lPoolTruck);
+		depots.get(1).addVehicle(leedsTruck);
+		depots.get(2).addVehicle(mChesterTruck);
 	}	
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
