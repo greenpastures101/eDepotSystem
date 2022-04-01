@@ -28,10 +28,9 @@ public class OnlineSystem {
 	public OnlineSystem() throws Exception {
 		deSerialize();
 		
-		/*
+		
 		//setDepot("Liverpool");
-		 * 
-		 */
+		depots.add(new Depot("Lpool"));
 	}
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
