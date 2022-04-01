@@ -27,6 +27,7 @@ public class OnlineSystem {
 	public OnlineSystem() throws Exception {
 		deSerialize();
 		
+		// Adding drivers
 		depots.add(new Depot("LPool"));
 		depots.add(new Depot("Leeds"));
 		depots.add(new Depot("MChester"));
@@ -35,7 +36,16 @@ public class OnlineSystem {
 		depots.get(1).addDriver(new Driver("Mark", "mark1", false, false, getDepot("Leeds")));
 		depots.get(0).addDriver(new Driver("Kirsty", "kirsty1", true, false, getDepot("LPool")));
 		depots.get(2).addDriver(new Driver("Andy", "andy1", true, false, getDepot("MChester")));
-	}
+		
+		// Adding vehicles
+		depots.get(0).addVehicle(new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol"));
+		depots.get(1).addVehicle(new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil"));
+		depots.get(2).addVehicle(new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel"));
+		depots.get(0).addVehicle(new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4));
+		depots.get(1).addVehicle(new Truck("Farrari", "T7X4000", 37000.1, "II90BLL", getDepot("Leeds"), 4900.7));
+		depots.get(2).addVehicle(new Truck("Porsche", "R80", 17000.9, "LN21DMV", getDepot("MChester"), 2600.6));
+		
+	}	
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
 	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\";
