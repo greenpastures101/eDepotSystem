@@ -1,17 +1,8 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.nio.file.Files;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -71,7 +62,7 @@ public class OnlineSystem {
 		do {
 			System.out.println("Please Log In to view Menu");
 			System.out.println("1 - Log In");
-			System.out.println("1 - Exit");
+			System.out.println("2 - Exit");
 			System.out.print("Enter option: ");
 			choice = S.nextLine();
 			
@@ -125,7 +116,8 @@ public class OnlineSystem {
 				System.out.println("1 - Create, Set or View Work Schedule");
 				System.out.println("2 - View, Re-Assign or Add Vehicles");
 				System.out.println("3 - Add Driver to System");
-				System.out.println("4 - Quit");
+				System.out.println("4 - View Drivers");
+				System.out.println("5 - Quit");
 				System.out.println("Enter option: ");
 				choice = S.nextLine();
 				
@@ -141,6 +133,9 @@ public class OnlineSystem {
 						addDriver();
 						break;
 					case "4":
+						depot.driverList();
+						break;
+					case "5":
 						logInMenu();
 						break;
 				}

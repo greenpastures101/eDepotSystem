@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.io.Serializable;
 
-public class WorkSchedule implements comparable<WorkSchedule>, Serializable{
+public class WorkSchedule implements Comparable<WorkSchedule>, Serializable{
 	protected String client;
 	private LocalDate startDate;
 	private LocalDate endDate;
