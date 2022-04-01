@@ -31,12 +31,14 @@ public class OnlineSystem {
 		
 		// Adding vehicles
 		Vehicle lPoolTanker = new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol");
+		Vehicle lPoolTanker2 = new Tanker("Tesla", "69", 32000.5, "ET10EVN", getDepot("LPool"), 3100.7, "Rocket Fuel");
 		Vehicle leedsTanker = new Tanker("Volkswagon", "P50", 35000.9, "YR12MUN", getDepot("Leeds"), 4700.4, "Oil");
 		Vehicle mChesterTanker = new Tanker("Honda", "XL7", 23000.2, "TH88KGN", getDepot("MChester"), 1200.9, "Diesel");
 		Vehicle lPoolTruck = new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4);
 		Vehicle leedsTruck = new Truck("Farrari", "T7X4000", 37000.1, "II90BLL", getDepot("Leeds"), 4900.7);
 		Vehicle mChesterTruck = new Truck("Porsche", "R80", 17000.9, "LN21DMV", getDepot("MChester"), 2600.6);
 		depots.get(0).addVehicle(lPoolTanker);
+		depots.get(0).addVehicle(lPoolTanker2);
 		depots.get(1).addVehicle(leedsTanker);
 		depots.get(2).addVehicle(mChesterTanker);
 		depots.get(0).addVehicle(lPoolTruck);
@@ -47,7 +49,6 @@ public class OnlineSystem {
 	// File reading and Scanner-------------------------------------------------------------------------------
 	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\";
 	
-
 	// Scanner------------------------------------------------------------------------------------------------
 	public final Scanner S = new Scanner(System.in);
 	private Driver driver;
@@ -565,7 +566,7 @@ public class OnlineSystem {
 	}
 	
 	public void depotList() {
-		for (Depot depots : depots) {
+		for (Depot depot : depots) {
 			System.out.println(depot);
 		}
 	}
