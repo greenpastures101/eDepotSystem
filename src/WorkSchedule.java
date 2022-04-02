@@ -38,9 +38,9 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable {
 		}
 	}
 	
-	//public void setStartDate(String startDate) throws Exception {
-		//setStartDate(LocalDate.parse(startDate));
-	//}
+	public void setStartDate(String startDate) throws Exception {
+		setStartDate(LocalDate.parse(startDate));
+	}
 	
 	
 	// Get start date----------------------------------------------------------------------------------------
@@ -59,9 +59,9 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable {
 			
 	}
 	
-	//public void setEndDate(String endDate) throws Exception {
-		//setEndDate(LocalDate.parse(endDate));
-	//}
+	public void setEndDate(String endDate) throws Exception {
+		setEndDate(LocalDate.parse(endDate));
+	}
 	
 	// Get end date------------------------------------------------------------------------------------------
 	public LocalDate getEndDate() {

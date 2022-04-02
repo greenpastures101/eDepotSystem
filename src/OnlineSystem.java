@@ -22,7 +22,7 @@ public class OnlineSystem {
 		//test
 		// Adding drivers
 		
-		WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.of(2022,4,04), LocalDate.of(2022,4,05));
+		WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-04"), LocalDate.parse("2022-04-05"));
 		depots.get(0).addCreatedSchedule(boJack);
 		
 		/*
@@ -319,22 +319,20 @@ public class OnlineSystem {
 	// This method allows us to create a schedule---------------------------------------------------------
 	public void createSchedule() {
 		String client;
-		//String startDate;
-		//String endDate;
-		LocalDate startDate;
-		LocalDate endDate;
+		String startDate;
+		String endDate;
 		
 		
 		do {
 			System.out.print("Client name: ");
 			client = S.nextLine();
 			System.out.println("Start date: ");
-			startDate = LocalDate.parse(S.nextLine());
+			startDate = S.nextLine();
 			System.out.println("End date: ");
-			endDate = LocalDate.parse(S.nextLine());
+			endDate = S.nextLine();
 			
 			try {
-				depot.addCreatedSchedule(new WorkSchedule(client, startDate, endDate));
+				depot.addCreatedSchedule(new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate)));
 				//WorkSchedule schedule = new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate));
 				sortSchedule();
 				System.out.println("New work schedule created!");
