@@ -20,10 +20,15 @@ public class OnlineSystem {
 		//test2
 		//test
 		// Adding drivers
+		
+		//WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-03"), LocalDate.parse("2022-04-04"));
+		//depots.get(0).addCreatedSchedule(boJack);
+		
 		/*
-		depots.add(new Depot("LPool"));
-		depots.add(new Depot("Leeds"));
-		depots.add(new Depot("MChester"));
+		depots.add(new Depot("LPool")); // 0
+		depots.add(new Depot("Leeds")); // 1
+		depots.add(new Depot("MChester")); // 2
+		
 		depots.get(0).addDriver(new Driver("Glyn", "glyn1", true, true, getDepot("LPool"))); // available, manager
 		depots.get(0).addDriver(new Driver("Kirsty", "kirsty1", true, false, getDepot("LPool"))); // available, not manager
 		depots.get(0).addDriver(new Driver("Samwise", "samwise1", false, false, getDepot("LPool"))); // unavailable, not manager
@@ -73,6 +78,7 @@ public class OnlineSystem {
 		depots.get(2).addVehicle(mChesterTanker3);
 		depots.get(2).addVehicle(mChesterTruck);
 		depots.get(2).addVehicle(mChesterTruck2); */
+		
 	}	
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
@@ -229,7 +235,7 @@ public class OnlineSystem {
 	// Vehicle Menu for managers--------------------------------------------------------------------------
 	public void vehicleOptions() throws Exception {
 		String choice;
-		String regNo = null;
+
 		do {
 			System.out.println("Please select an option: ");
 			System.out.println("1 - View Vehicles");
@@ -308,19 +314,23 @@ public class OnlineSystem {
 	// This method allows us to create a schedule---------------------------------------------------------
 	public void createSchedule() {
 		String client;
-		String startDate;
-		String endDate;
+		//String startDate;
+		//String endDate;
+		LocalDate startDate;
+		LocalDate endDate;
+		
 		
 		do {
 			System.out.print("Client name: ");
 			client = S.nextLine();
 			System.out.println("Start date: ");
-			startDate = S.nextLine();
+			startDate = LocalDate.parse(S.nextLine());
 			System.out.println("End date: ");
-			endDate = S.nextLine();
+			endDate = LocalDate.parse(S.nextLine());
 			
 			try {
-				depot.addCreatedSchedule(new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate)));
+				depot.addCreatedSchedule(new WorkSchedule(client, startDate, endDate));
+				//WorkSchedule schedule = new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate));
 				sortSchedule();
 				System.out.println("New work schedule created!");
 				break;

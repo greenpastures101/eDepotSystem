@@ -1,10 +1,12 @@
 import java.time.LocalDate;
-
-import oosd.depot.Driver;
-
 import java.io.Serializable;
 
-public class WorkSchedule implements Comparable<WorkSchedule>, Serializable{
+public class WorkSchedule implements Comparable<WorkSchedule>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String client;
 	private LocalDate startDate;
 	private LocalDate endDate;
@@ -36,9 +38,10 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable{
 		}
 	}
 	
-	public void setStartDate(String startDate) throws Exception {
-		setStartDate(LocalDate.parse(startDate));
-	}
+	//public void setStartDate(String startDate) throws Exception {
+		//setStartDate(LocalDate.parse(startDate));
+	//}
+	
 	
 	// Get start date----------------------------------------------------------------------------------------
 	public LocalDate getStartDate() {
@@ -56,9 +59,9 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable{
 			
 	}
 	
-	public void setEndDate(String endDate) throws Exception {
-		setEndDate(LocalDate.parse(endDate));
-	}
+	//public void setEndDate(String endDate) throws Exception {
+		//setEndDate(LocalDate.parse(endDate));
+	//}
 	
 	// Get end date------------------------------------------------------------------------------------------
 	public LocalDate getEndDate() {
