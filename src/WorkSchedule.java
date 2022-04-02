@@ -14,7 +14,7 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable {
 	private String vehicleAssigned;
 	
 	// Making Constructors------------------------------------------------------------------------------------
-	public WorkSchedule(String client, LocalDate startdate, LocalDate endDate) throws Exception {
+	public WorkSchedule(String client, LocalDate startDate, LocalDate endDate) throws Exception {
 		this.client = client;
 		setStartDate(startDate);
 		setEndDate(endDate);

@@ -18,9 +18,6 @@ public class Depot implements Serializable {
 	
 	public Depot(String depotArea) throws Exception {
 		this.depotArea = depotArea;
-		
-		//workSchedules.add(new WorkSchedule("BoJack", LocalDate.of(2022,04,04), LocalDate.of(2022,04,05)));
-		//System.out.println(drivers.toString());
 	}
 	
 	// Verifying the correct login details are entered--------------------------------------------------------

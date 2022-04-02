@@ -3,7 +3,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -18,12 +17,13 @@ public class OnlineSystem {
 	}
 	public OnlineSystem() throws Exception {
 		deSerialize();
-		//test2
-		//test
 		// Adding drivers
+
+		//WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-04"), LocalDate.parse("2022-04-05"));
+		//depots.get(0).addCreatedSchedule(boJack);
 		
-		WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-04"), LocalDate.parse("2022-04-05"));
-		depots.get(0).addCreatedSchedule(boJack);
+		//WorkSchedule mrPeanutButter = new WorkSchedule("MrPeanutButter", LocalDate.parse("2022-04-07"), LocalDate.parse("2022-04-08"));
+		//depots.get(1).addCreatedSchedule(mrPeanutButter);
 		
 		/*
 		depots.add(new Depot("LPool")); // 0
@@ -204,12 +204,13 @@ public class OnlineSystem {
 		
 		do {
 			System.out.println("Please select an option");
-			System.out.println("1 - View Work Schedule");
-			System.out.println("2 - View Created Schedules");
+			System.out.println("1 - View Your Work Schedule");
+			System.out.println("2 - View All Created Schedules");
 			System.out.println("3 - Create Work Schedule");
 			System.out.println("4 - Set Work Schedule");
-			System.out.println("5 - View Completed Work Schedules");
-			System.out.println("6 - Quit");
+			System.out.println("5 - Change Work Schedule To Complete");
+			System.out.println("6 - View Completed Work Schedules");
+			System.out.println("7 - Quit");
 			System.out.println("Enter option: ");
 			choice = S.nextLine();
 			
@@ -227,10 +228,12 @@ public class OnlineSystem {
 				case "4":
 					setSchedule();
 					break;
-				case"5":
+				case "5":
+					setCompleteSchedule();
+				case"6":
 					depot.completedScheduleList();
 					break;
-				case "6":
+				case "7":
 					mainMenu();
 					break;
 			}
@@ -658,7 +661,7 @@ public class OnlineSystem {
 		ObjectOutputStream oos;
 		try {
 			
-			oos = new ObjectOutputStream (new FileOutputStream(PATH + "depots.ser"));
+			oos = new ObjectOutputStream (new FileOutputStream(PATH + "depotInfo.ser"));
 			oos.writeObject(depots);
 			oos.close();
 		} catch (Exception e) {
@@ -669,7 +672,7 @@ public class OnlineSystem {
 	private void deSerialize() {
 		ObjectInputStream ois;
 		try {
-			ois = new ObjectInputStream (new FileInputStream(PATH + "depots.ser"));
+			ois = new ObjectInputStream (new FileInputStream(PATH + "depotInfo.ser"));
 			depots = (List<Depot>)ois.readObject();
 			ois.close();
 		} catch (Exception e) {
