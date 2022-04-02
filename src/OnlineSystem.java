@@ -20,6 +20,7 @@ public class OnlineSystem {
 		//test2
 		//test
 		// Adding drivers
+		/*
 		depots.add(new Depot("LPool"));
 		depots.add(new Depot("Leeds"));
 		depots.add(new Depot("MChester"));
@@ -71,7 +72,7 @@ public class OnlineSystem {
 		depots.get(2).addVehicle(mChesterTanker2);
 		depots.get(2).addVehicle(mChesterTanker3);
 		depots.get(2).addVehicle(mChesterTruck);
-		depots.get(2).addVehicle(mChesterTruck2);
+		depots.get(2).addVehicle(mChesterTruck2); */
 	}	
 	
 	// File reading and Scanner-------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ public class OnlineSystem {
 		
 		if (driver.getIsManager()) {
 			do {
-				System.out.println("Welcome! Please select an option: ");
+				System.out.println("Welcome to the " + depot.toString() + " online depot system! Please select an option: ");
 				System.out.println("1 - Create, Set or View Work Schedule");
 				System.out.println("2 - View, Re-Assign or Add Vehicles");
 				System.out.println("3 - View Drivers");
@@ -228,13 +229,14 @@ public class OnlineSystem {
 	// Vehicle Menu for managers--------------------------------------------------------------------------
 	public void vehicleOptions() throws Exception {
 		String choice;
-		
+		String regNo = null;
 		do {
 			System.out.println("Please select an option: ");
 			System.out.println("1 - View Vehicles");
 			System.out.println("2 - Add Vehicle");
 			System.out.println("3 - Re-Assign Vehicle");
-			System.out.println("4 - Quit");
+			System.out.println("4 - Remove Vehicle");
+			System.out.println("5 - Quit");
 			System.out.println("Enter option: ");
 			choice = S.nextLine();
 			
@@ -250,10 +252,24 @@ public class OnlineSystem {
 					reAssignVehicle();
 					break;
 				case "4":
-					mainMenu();
+					removeVehicle();
 					break;
+				case "5":
+					mainMenu();
 			}
 		} while (true);
+	}
+	
+	public void removeVehicle() {
+		String regNo;
+		boolean exit = false;
+
+		do {
+			System.out.println("Please enter the registration number of the vehicle to remove: ");
+			regNo = S.nextLine();
+			depot.removeVehicle(regNo);
+			break;
+		} while (!exit);
 	}
 	
 	// This method allows us to add a new driver to the system--------------------------------------------

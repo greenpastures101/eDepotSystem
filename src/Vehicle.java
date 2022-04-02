@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Serializable {
 	protected String make;
     protected String model;
     protected double weight;

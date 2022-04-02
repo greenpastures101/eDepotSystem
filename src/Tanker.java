@@ -1,5 +1,5 @@
 
-public class Tanker extends Vehicle{
+public class Tanker extends Vehicle {
     private double liquidCapacity;
     private String liquidType;
     private String type;
