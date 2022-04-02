@@ -28,7 +28,7 @@ public class WorkSchedule implements Comparable<WorkSchedule>, Serializable {
 		this.endDate = null;
 	}
 	
-	// Allows us to set the start date and checks it is not being set in the past-----------------------------
+	 //Allows us to set the start date and checks it is not being set in the past-----------------------------
 	public void setStartDate(LocalDate startDate) throws Exception {
 		if (startDate.isAfter(LocalDate.now())) {
 			this.startDate = startDate;

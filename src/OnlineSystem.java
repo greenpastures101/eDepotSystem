@@ -3,6 +3,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -21,8 +22,8 @@ public class OnlineSystem {
 		//test
 		// Adding drivers
 		
-		//WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-03"), LocalDate.parse("2022-04-04"));
-		//depots.get(0).addCreatedSchedule(boJack);
+		WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.of(2022,4,04), LocalDate.of(2022,4,05));
+		depots.get(0).addCreatedSchedule(boJack);
 		
 		/*
 		depots.add(new Depot("LPool")); // 0
@@ -204,10 +205,11 @@ public class OnlineSystem {
 		do {
 			System.out.println("Please select an option");
 			System.out.println("1 - View Work Schedule");
-			System.out.println("2 - Create Work Schedule");
-			System.out.println("3 - Set Work Schedule");
-			System.out.println("4 - View Completed Work Schedules");
-			System.out.println("5 - Quit");
+			System.out.println("2 - View Created Schedules");
+			System.out.println("3 - Create Work Schedule");
+			System.out.println("4 - Set Work Schedule");
+			System.out.println("5 - View Completed Work Schedules");
+			System.out.println("6 - Quit");
 			System.out.println("Enter option: ");
 			choice = S.nextLine();
 			
@@ -217,15 +219,18 @@ public class OnlineSystem {
 					System.out.println(driver.getSchedule());
 					break;
 				case "2":
-					createSchedule();
+					depot.scheduleList();
 					break;
 				case "3":
+					createSchedule();
+					break;
+				case "4":
 					setSchedule();
 					break;
-				case"4":
+				case"5":
 					depot.completedScheduleList();
 					break;
-				case "5":
+				case "6":
 					mainMenu();
 					break;
 			}
