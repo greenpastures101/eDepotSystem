@@ -10,14 +10,20 @@ public class Depot implements Serializable {
 	private WorkSchedule workSchedule;
 	private String depotArea;
 	
+	// Constructors
+	public Depot(String depotArea) throws Exception {
+		this.depotArea = depotArea;
+	}
+	
 	private ArrayList<Driver> drivers = new ArrayList<Driver>();
 	private List<WorkSchedule> workSchedules = Collections.synchronizedList(new ArrayList<WorkSchedule>());
 	private List<WorkSchedule> completedSchedules = Collections.synchronizedList(new ArrayList<WorkSchedule>());
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
+
 	
-	public Depot(String depotArea) throws Exception {
-		this.depotArea = depotArea;
+	public String toString() {
+		return depotArea;
 	}
 	
 	// Verifying the correct login details are entered--------------------------------------------------------
@@ -31,14 +37,8 @@ public class Depot implements Serializable {
 	}
 	
 	//---------VEHICLE SECTION--------------------------------------------------------------------------------
-	// Getting a specific vehicle-----------------------------------------------------------------------------
-	public Vehicle getVehicle(String regNo) {
-		for (Vehicle veh : vehicles) {
-			if (regNo.equals(veh.regNo)) {
-				return veh;
-			}
-		} return null;
-	}
+
+
 	
 	// Allows us to add vehicles into the system--------------------------------------------------------------
 	public void addVehicle(Vehicle vehicle) {
@@ -65,42 +65,12 @@ public class Depot implements Serializable {
 		}
 	}
 	
-	// Gets all the vehicles----------------------------------------------------------------------------------
-	public List<Vehicle> getVehicles() {
-		return vehicles;
-	}
-	
-	// Gets the unassigned vehicles
-	public ArrayList<Vehicle> getUnassignedVehicles() {
-		ArrayList<Vehicle> unAssignedVehicles = new ArrayList<>();
-		for (Vehicle v : vehicles) {
-			if (v.getDriver() == null && v.getWorkSchedule() == null) {
-				unAssignedVehicles.add(v);
-			}
-		} return unAssignedVehicles;
-	}
-	
 	//-----DRIVER SECTION-------------------------------------------------------------------------------------
 	// Lists all the drivers in the system--------------------------------------------------------------------
 	public void driverList() {
 		for (Driver driver : drivers) {
 			System.out.println(driver.toString());
 		}
-	}
-	
-	// Gets a driver by username------------------------------------------------------------------------------
-	public Driver getDriver(String username) {
-		for (Driver driver : drivers) {
-			if (username.equals(driver.userName)) {
-				return driver;
-			}
-		}
-		return null;
-	}
-	
-	// Gets all the drivers-----------------------------------------------------------------------------------
-	public ArrayList<Driver> getDrivers() {
-		return drivers;
 	}
 	
 	// Allows us to add a driver to the system----------------------------------------------------------------
@@ -136,6 +106,74 @@ public class Depot implements Serializable {
 			}
 	}
 	
+	
+	// Allows us to add a CREATED work schedule to array------------------------------------------------------
+	public void addCreatedSchedule(WorkSchedule ws) {
+		workSchedules.add(ws);
+	}
+	
+	// Allows us to add completed work schedules
+	public void addCompletedSchedule(WorkSchedule ws) {
+		completedSchedules.add(ws);
+	}
+	
+	
+	//-----AREA SECTION---------------------------------------------------------------------------------------
+	// This gets a depot area---------------------------------------------------------------------------------
+	public String getDepotArea() {
+		return depotArea;
+	}
+	
+	// Getters and Setters
+	
+	// Getting a specific vehicle
+	public Vehicle getVehicle(String regNo) {
+		for (Vehicle veh : vehicles) {
+			if (regNo.equals(veh.regNo)) {
+				return veh;
+			}
+		} return null;
+	}
+	
+	// Gets all the vehicles
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+	
+	// Gets all the unassigned vehicles
+	public ArrayList<Vehicle> getUnassignedVehicles() {
+		ArrayList<Vehicle> unAssignedVehicles = new ArrayList<>();
+		for (Vehicle v : vehicles) {
+			if (v.getDriver() == null && v.getWorkSchedule() == null) {
+				unAssignedVehicles.add(v);
+			}
+		} return unAssignedVehicles;
+	}
+	
+	// Gets a driver by username
+	public Driver getDriver(String username) {
+		for (Driver driver : drivers) {
+			if (username.equals(driver.userName)) {
+				return driver;
+			}
+		}
+		return null;
+	}
+	
+	// Gets all the drivers-----------------------------------------------------------------------------------
+	public ArrayList<Driver> getDrivers() {
+		return drivers;
+	}
+	
+	// Allows us to get a specific schedule by client name
+	public WorkSchedule getWSchedule(String clientName) {
+		for (WorkSchedule workSchedule : workSchedules) {
+			if (clientName.equals(workSchedule.client)) {
+				return workSchedule;
+			}
+		} return null;
+	}
+	
 	// Get UNASSIGNED work schedules--------------------------------------------------------------------------
 	public ArrayList<WorkSchedule> getUnassignedSchedules() {
 		ArrayList<WorkSchedule> unassignedSchedules = new ArrayList<>();
@@ -151,37 +189,9 @@ public class Depot implements Serializable {
 		return workSchedules;
 	}
 	
-	// Allows us to add a CREATED work schedule to array------------------------------------------------------
-	public void addCreatedSchedule(WorkSchedule ws) {
-		workSchedules.add(ws);
-	}
-	
-	// Allows us to add completed work schedules
-	public void addCompletedSchedule(WorkSchedule ws) {
-		completedSchedules.add(ws);
-	}
-	
 	// Gets COMPLETED schedules-------------------------------------------------------------------------------
 	public List<WorkSchedule>getCompletedSchedules() {
 		return completedSchedules;
 	}
 	
-	// Allows us to get a specific schedule by client name
-	public WorkSchedule getWSchedule(String clientName) {
-		for (WorkSchedule workSchedule : workSchedules) {
-			if (clientName.equals(workSchedule.client)) {
-				return workSchedule;
-			}
-		} return null;
-	}
-	
-	//-----AREA SECTION---------------------------------------------------------------------------------------
-	// This gets a depot area---------------------------------------------------------------------------------
-	public String getDepotArea() {
-		return depotArea;
-	}
-	
-	public String toString() {
-		return depotArea;
-	}
 }

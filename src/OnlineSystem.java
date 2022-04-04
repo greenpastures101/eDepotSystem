@@ -115,6 +115,29 @@ public class OnlineSystem {
 		System.exit(0);
 	}
 	
+	private void serialize() {
+		ObjectOutputStream oos;
+		try {
+			
+			oos = new ObjectOutputStream (new FileOutputStream(PATH + "depotInfo.ser"));
+			oos.writeObject(depots);
+			oos.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private void deSerialize() {
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream (new FileInputStream(PATH + "depotInfo.ser"));
+			depots = (List<Depot>)ois.readObject();
+			ois.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	// Method for log in--------------------------------------------------------------------------------------
 	public void logIn() throws Exception {
 		driver = null;
@@ -313,9 +336,9 @@ public class OnlineSystem {
 		do {
 			System.out.print("Please enter client name: ");
 			client = S.nextLine();
-			System.out.println("Please enter start date: ");
+			System.out.println("Please enter start date [i.e. yyyy-mm-dd]: ");
 			startDate = S.nextLine();
-			System.out.println("Please enter end date: ");
+			System.out.println("Please enter end date [i.e. yyyy-mm-dd]: ");
 			endDate = S.nextLine();
 			
 			try {
@@ -384,6 +407,36 @@ public class OnlineSystem {
 		}
 	}
 	
+	// Allows us to assign a vehicle to a set work schedule--------------------------------------------------
+	public void assignVehicle(Driver driver, WorkSchedule ws) {
+		boolean exit = false;
+		
+		if (depot.getVehicles().isEmpty() && depot.getUnassignedVehicles().isEmpty()) {
+			System.out.println("No vehicles available please try again!");
+			return;
+		}
+		
+		do {
+			depot.unAssignedVehicleList();
+			System.out.println("Please enter registration number");
+			String regNo = S.nextLine();
+			
+			for (Vehicle v : depot.getVehicles()) {
+				if (regNo.equals(v.regNo) && v.driver == null && !regNo.isEmpty() && v.getWorkSchedule() == null) {
+					v.setDriver(driver);
+					v.setWorkSchedule(ws);
+					ws.setVehicleAssigned(v);
+					System.out.println("Vehicle " + regNo + " successfully assigned!");
+					exit = true;
+					return;
+				} else {
+					System.out.println("Invalid registration number please try again!");
+				}
+			}
+			
+		} while (exit);
+	}
+	
 	// Method for setting a schedule as complete-------------------------------------------------------------
 	public void setScheduleAsComplete() throws Exception {
 		String clientName;
@@ -424,7 +477,7 @@ public class OnlineSystem {
 					driver.setAssigned(false);
 					System.out.println(client + "'s schedule has been set as complete!");
 					sortSchedule();
-					nullVehicle(ws);
+					removeVehicle(ws);
 				} else {
 					System.out.println("Invalid date please try again!");
 				}
@@ -432,36 +485,15 @@ public class OnlineSystem {
 		}
 	}
 	
-	//---------VEHICLE MENU----------------------------------------------------------------------------------
-	// Allows us to assign a vehicle to a set work schedule--------------------------------------------------
-	public void assignVehicle(Driver driver, WorkSchedule ws) {
-		boolean exit = false;
-		
-		if (depot.getVehicles().isEmpty() && depot.getUnassignedVehicles().isEmpty()) {
-			System.out.println("No vehicles available please try again!");
-			return;
-		}
-		
-		do {
-			depot.unAssignedVehicleList();
-			System.out.println("Please enter registration number");
-			String regNo = S.nextLine();
-			
-			for (Vehicle v : depot.getVehicles()) {
-				if (regNo.equals(v.regNo) && v.driver == null && !regNo.isEmpty() && v.getWorkSchedule() == null) {
-					v.setDriver(driver);
-					v.setWorkSchedule(ws);
-					ws.setVehicleAssigned(v);
-					System.out.println("Vehicle " + regNo + " successfully assigned!");
-					exit = true;
-					return;
-				} else {
-					System.out.println("Invalid registration number please try again!");
-				}
-			}
-			
-		} while (exit);
+	// Allows us to remove a vehicle from a schedule---------------------------------------------------------
+	public void removeVehicle(WorkSchedule ws) {
+		Vehicle v = depot.getVehicle(ws.getVehicleAssigned());
+		v.setDriver(null);
+		v.setWorkSchedule(null);
+		return;
 	}
+	
+	//---------VEHICLE MENU----------------------------------------------------------------------------------
 	
 	// Method for adding a vehicle to the system-------------------------------------------------------------
 	public void addVehicle() throws Exception {
@@ -584,14 +616,6 @@ public class OnlineSystem {
 		} while (!exit);
 	}
 	
-	// Allows us to remove a vehicle from a schedule---------------------------------------------------------
-	public void nullVehicle(WorkSchedule ws) {
-		Vehicle v = depot.getVehicle(ws.getVehicleAssigned());
-		v.setDriver(null);
-		v.setWorkSchedule(null);
-		return;
-	}
-	
 	public Depot getDepot() {
 		return depot;
 	}
@@ -639,30 +663,5 @@ public class OnlineSystem {
 			}
 		} return true;
 	}
-	
-	private void serialize() {
-		ObjectOutputStream oos;
-		try {
-			
-			oos = new ObjectOutputStream (new FileOutputStream(PATH + "depotInfo.ser"));
-			oos.writeObject(depots);
-			oos.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	private void deSerialize() {
-		ObjectInputStream ois;
-		try {
-			ois = new ObjectInputStream (new FileInputStream(PATH + "depotInfo.ser"));
-			depots = (List<Depot>)ois.readObject();
-			ois.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-
 	
 }
