@@ -338,7 +338,6 @@ public class OnlineSystem {
 		} return true;
 	}
 	
-	//---------SCHEDULE MENU------------------------------------------------------------------------------
 	// This method allows us to create a schedule---------------------------------------------------------
 	public void createSchedule() {
 		String client;
