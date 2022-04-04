@@ -137,7 +137,7 @@ public class OnlineSystem {
 				break;
 			}
 			} if (!valid) {
-				System.out.println("Invalid login details");
+				System.out.println("Invalid login details please try again!");
 			}
 		} while (!exit);
 		mainMenu();
@@ -150,8 +150,8 @@ public class OnlineSystem {
 		if (driver.getIsManager()) {
 			do {
 				System.out.println("Welcome to the " + depot.toString() + " online depot system! Please select an option: ");
-				System.out.println("1 - Create, Set or View Work Schedule");
-				System.out.println("2 - View, Re-Assign or Add Vehicles");
+				System.out.println("1 - Schedule Menu");
+				System.out.println("2 - Vehicle Menu");
 				System.out.println("3 - View Drivers");
 				System.out.println("4 - Add Driver to System");
 				System.out.println("5 - Quit");
@@ -179,7 +179,7 @@ public class OnlineSystem {
 			} while (true);
 		} else {
 			do {
-				System.out.println("Welcome! Please select an option");
+				System.out.println("Welcome " + driver.toString() + "!" + " Please select an option");
 				System.out.println("1 - View Work Schedule");
 				System.out.println("2 - Quit");
 				System.out.println("Enter option: ");
@@ -229,7 +229,7 @@ public class OnlineSystem {
 					setSchedule();
 					break;
 				case "5":
-					setCompleteSchedule();
+					setScheduleAsComplete();
 				case"6":
 					depot.completedScheduleList();
 					break;
@@ -249,8 +249,7 @@ public class OnlineSystem {
 			System.out.println("1 - View Vehicles");
 			System.out.println("2 - Add Vehicle");
 			System.out.println("3 - Re-Assign Vehicle");
-			System.out.println("4 - Remove Vehicle");
-			System.out.println("5 - Quit");
+			System.out.println("4 - Quit");
 			System.out.println("Enter option: ");
 			choice = S.nextLine();
 			
@@ -266,24 +265,9 @@ public class OnlineSystem {
 					reAssignVehicle();
 					break;
 				case "4":
-					removeVehicle();
-					break;
-				case "5":
 					mainMenu();
 			}
 		} while (true);
-	}
-	
-	public void removeVehicle() {
-		String regNo;
-		boolean exit = false;
-
-		do {
-			System.out.println("Please enter the registration number of the vehicle to remove: ");
-			regNo = S.nextLine();
-			depot.removeVehicle(regNo);
-			break;
-		} while (!exit);
 	}
 	
 	// This method allows us to add a new driver to the system--------------------------------------------
@@ -294,14 +278,14 @@ public class OnlineSystem {
 		boolean isManager = false;
 		boolean exit = false;
 		do {
-			System.out.println("Enter name: ");
+			System.out.println("Please enter name: ");
 			name = S.nextLine().trim();
 			if (!name.matches(".*\\d.*") && isUserNameUnique(name)) {
 				
-				System.out.println("Enter password: ");
+				System.out.println("please enter password: ");
 				password = S.nextLine().trim();
 				
-				System.out.println("Make new driver a manager?: (yes or no)");
+				System.out.println("Make " + name + " a manager?: (yes or no)");
 				newManager = S.nextLine().toLowerCase();
 				if (newManager.contains("yes")) {
 					isManager = true;
@@ -313,7 +297,7 @@ public class OnlineSystem {
 				exit = true;
 				break;
 			} else {
-				System.out.println("Username already exists!");
+				System.out.println("Username already exists please try again!");
 			}
 		} while (!exit);
 	}
@@ -327,22 +311,21 @@ public class OnlineSystem {
 		
 		
 		do {
-			System.out.print("Client name: ");
+			System.out.print("Please enter client name: ");
 			client = S.nextLine();
-			System.out.println("Start date: ");
+			System.out.println("Please enter start date: ");
 			startDate = S.nextLine();
-			System.out.println("End date: ");
+			System.out.println("Please enter end date: ");
 			endDate = S.nextLine();
 			
 			try {
 				depot.addCreatedSchedule(new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate)));
-				//WorkSchedule schedule = new WorkSchedule(client, LocalDate.parse(startDate), LocalDate.parse(endDate));
 				sortSchedule();
-				System.out.println("New work schedule created!");
+				System.out.println("New work schedule for " + client + " has been created!");
 				break;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				System.out.println("Invalid date entered!");
+				System.out.println("Invalid date entered please try again!");
 			}
 		} while (true);
 	}
@@ -353,8 +336,56 @@ public class OnlineSystem {
 		depot.getCompletedSchedules().sort(Comparator.comparing(WorkSchedule::getStartDate));
 	}
 	
+	// Method for setting a created schedule--------------------------------------------------------------
+	public void setSchedule() {
+		String client;
+		String driver;
+		boolean exit = false;
+		boolean registeredClient = false;
+		boolean availableDriver = false;
+		
+		if(depot.getSchedules().isEmpty() && !depot.getUnassignedSchedules().isEmpty()) {
+			System.out.println("All Schedules have been assigned!");
+			return;
+		}
+		depot.unassignedScheduleList();
+		System.out.println("Please enter client name of schedule to be assigned");
+		client = S.nextLine();
+		for (WorkSchedule ws : depot.getSchedules()) {
+			if (client.equals(ws.getClient())) {
+				registeredClient = true;
+				System.out.println("Drivers currently at " + depot.toString() + "depot: ");
+				depot.driverList();
+				System.out.println("Please select a driver to assign " + client + "'s schedule to: ");
+				driver = S.nextLine();
+				
+				for (Driver drivers : depot.getDrivers()) {
+					if (driver.equals(drivers.userName) && drivers.getSchedule() == null) {
+						availableDriver = true;
+						System.out.println("The work schedule for " + client + "has been assigned to " + driver + "!");
+						depot.getDriver(driver).setSchedule(depot.getWSchedule(client));
+						drivers.setAssigned(true);
+						ws.setDriverAssigned(depot.getDriver(driver));
+						exit = true;
+						assignVehicle(depot.getDriver(driver), ws);
+						break;
+					} else if ((!driver.equals(drivers.userName) && drivers.getSchedule() != null)) {
+						availableDriver = false;
+					}
+				} break;
+			} else {
+				registeredClient = false;
+			}
+		}
+		if (!registeredClient) {
+			System.out.println("Invalid client please try again!");
+		} else if (!availableDriver) {
+			System.out.println("Invalid driver please try again!");
+		}
+	}
+	
 	// Method for setting a schedule as complete-------------------------------------------------------------
-	public void setCompleteSchedule() throws Exception {
+	public void setScheduleAsComplete() throws Exception {
 		String clientName;
 		WorkSchedule ws;
 		boolean exists = false;
@@ -362,7 +393,7 @@ public class OnlineSystem {
 		boolean valid;
 		
 		if (depot.getSchedules().isEmpty()) {
-			System.out.println("No active work schedules!");
+			System.out.println("No active work schedules currently exist!");
 			return;
 		}
 		depot.scheduleList();
@@ -391,61 +422,13 @@ public class OnlineSystem {
 				if (client.equals(ws.getClient())) {
 					driver.setSchedule(null);
 					driver.setAssigned(false);
-					System.out.println("Schedule has been set as complete!");
+					System.out.println(client + "'s schedule has been set as complete!");
 					sortSchedule();
 					nullVehicle(ws);
 				} else {
-					System.out.println("Invalid!");
+					System.out.println("Invalid date please try again!");
 				}
 			}
-		}
-	}
-	
-	// Method for setting a created schedule--------------------------------------------------------------
-	public void setSchedule() {
-		String client;
-		String driver;
-		boolean exit = false;
-		boolean registeredClient = false;
-		boolean availableDriver = false;
-		
-		if(depot.getSchedules().isEmpty() && !depot.getUnassignedSchedules().isEmpty()) {
-			System.out.println("All Schedules have been assigned!");
-			return;
-		}
-		depot.unassignedScheduleList();
-		System.out.println("Enter client name of schedule to be assigned");
-		client = S.nextLine();
-		for (WorkSchedule ws : depot.getSchedules()) {
-			if (client.equals(ws.getClient())) {
-				registeredClient = true;
-				System.out.println("Drivers currently in the system");
-				depot.driverList();
-				System.out.println("Please select a driver to assign schedule to");
-				driver = S.nextLine();
-				
-				for (Driver drivers : depot.getDrivers()) {
-					if (driver.equals(drivers.userName) && drivers.getSchedule() == null) {
-						availableDriver = true;
-						System.out.println("The work schedule for " + client + "has been assigned to " + driver + "!");
-						depot.getDriver(driver).setSchedule(depot.getWSchedule(client));
-						drivers.setAssigned(true);
-						ws.setDriverAssigned(depot.getDriver(driver));
-						exit = true;
-						assignVehicle(depot.getDriver(driver), ws);
-						break;
-					} else if ((!driver.equals(drivers.userName) && drivers.getSchedule() != null)) {
-						availableDriver = false;
-					}
-				} break;
-			} else {
-				registeredClient = false;
-			}
-		}
-		if (!registeredClient) {
-			System.out.println("Invalid client try again!");
-		} else if (!availableDriver) {
-			System.out.println("Invalid driver try again!");
 		}
 	}
 	
@@ -455,7 +438,7 @@ public class OnlineSystem {
 		boolean exit = false;
 		
 		if (depot.getVehicles().isEmpty() && depot.getUnassignedVehicles().isEmpty()) {
-			System.out.println("No vehicles available");
+			System.out.println("No vehicles available please try again!");
 			return;
 		}
 		
@@ -469,75 +452,15 @@ public class OnlineSystem {
 					v.setDriver(driver);
 					v.setWorkSchedule(ws);
 					ws.setVehicleAssigned(v);
-					System.out.println("Vehicle successfully assigned!");
+					System.out.println("Vehicle " + regNo + " successfully assigned!");
 					exit = true;
 					return;
 				} else {
-					System.out.println("Invalid registration number!");
+					System.out.println("Invalid registration number please try again!");
 				}
 			}
 			
 		} while (exit);
-	}
-	
-	// Method for re-assigning a vehicle to another depot----------------------------------------------------
-	public void reAssignVehicle() {
-		String selectVehicle;
-		String selectDepot = "";
-		boolean exit = false;
-		boolean validRegNo = false;
-		boolean validArea = false;
-		int count = 0;
-		Vehicle v;
-		
-		if (depot.getVehicles().isEmpty()) {
-			System.out.println("No available vehicles to re-assign!");
-			return;
-		}
-		do {
-			System.out.println("Depots");
-			depot.vehicleList();
-			System.out.println("Please enter registration number of vehicle to be re-assigned");
-			selectVehicle = S.nextLine();
-			for (Vehicle vehicle : depot.getVehicles()) {
-				if (selectVehicle.equals(vehicle.getRegNo())) {
-					validRegNo = true;
-					System.out.println(selectVehicle + " has been selected");
-					depotList();
-					System.out.println("Please enter depot you would like to re-assign " + selectVehicle + " to: ");
-					selectDepot = S.nextLine();
-					
-					for (Depot d : depots) {
-						if (selectDepot.equals(d.getDepotArea()) && !selectDepot.equals(vehicle.getDepot())) {
-							validArea = true;
-							validRegNo = true;
-							System.out.println(selectVehicle + " has been re-assigned to depot " + selectDepot + "!");
-							exit = true;
-							break;
-						} else {
-							validArea = false;
-						}
-						count++;
-					}
-				} else {
-					validRegNo = false; 
-				}
-			}
-			
-			if (!validRegNo) {
-				System.out.println("Invalid registration please try again!");
-			}
-			if (!validArea) {
-				System.out.println("Invalid depot or vehicle is already assigned to this depot please try again!");
-			}
-			if (validArea) {
-				v = depot.getVehicle(selectVehicle);
-				v.setDepot(getDepot(selectDepot));
-				depots.get(count).addVehicle(v);
-				depot.getVehicles().remove(v);
-			}
-			
-		} while (!exit);
 	}
 	
 	// Method for adding a vehicle to the system-------------------------------------------------------------
@@ -595,10 +518,70 @@ public class OnlineSystem {
 					System.out.println("Invalid vehicle type entered please try again!");
 					break;
 				} else {
-					System.out.println("Please enter a valid name!");
+					System.out.println("Invalid type please try again!!");
 				}
 		} while (!exit);
 		
+	}
+	
+	// Method for re-assigning a vehicle to another depot----------------------------------------------------
+	public void reAssignVehicle() {
+		String selectVehicle;
+		String selectDepot = "";
+		boolean exit = false;
+		boolean validRegNo = false;
+		boolean validArea = false;
+		int count = 0;
+		Vehicle v;
+		
+		if (depot.getVehicles().isEmpty()) {
+			System.out.println("No available vehicles to re-assign!");
+			return;
+		}
+		do {
+			System.out.println("Depots: ");
+			depot.vehicleList();
+			System.out.println("Please enter registration number of vehicle to be re-assigned: ");
+			selectVehicle = S.nextLine();
+			for (Vehicle vehicle : depot.getVehicles()) {
+				if (selectVehicle.equals(vehicle.getRegNo())) {
+					validRegNo = true;
+					System.out.println(selectVehicle + " has been selected");
+					depotList();
+					System.out.println("Please enter depot you would like to re-assign " + selectVehicle + " to: ");
+					selectDepot = S.nextLine();
+					
+					for (Depot d : depots) {
+						if (selectDepot.equals(d.getDepotArea()) && !selectDepot.equals(vehicle.getDepot())) {
+							validArea = true;
+							validRegNo = true;
+							System.out.println(selectVehicle + " has been re-assigned to depot " + selectDepot + "!");
+							exit = true;
+							break;
+						} else {
+							validArea = false;
+						}
+						count++;
+					}
+				} else {
+					validRegNo = false; 
+				}
+			}
+			
+			if (!validRegNo) {
+				System.out.println("Invalid registration number please try again!");
+			}
+			if (!validArea) {
+				System.out.println("Invalid depot or vehicle is already assigned to this depot please try again!");
+			}
+			if (validArea) {
+				v = depot.getVehicle(selectVehicle);
+				v.setDepot(getDepot(selectDepot));
+				depots.get(count).addVehicle(v);
+				depot.getVehicles().remove(v);
+			}
+			
+		} while (!exit);
 	}
 	
 	// Allows us to remove a vehicle from a schedule---------------------------------------------------------
