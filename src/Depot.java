@@ -36,10 +36,6 @@ public class Depot implements Serializable {
 		} return false;
 	}
 	
-	//---------VEHICLE SECTION--------------------------------------------------------------------------------
-
-
-	
 	// Allows us to add vehicles into the system--------------------------------------------------------------
 	public void addVehicle(Vehicle vehicle) {
 		vehicles.add(vehicle);
@@ -65,7 +61,6 @@ public class Depot implements Serializable {
 		}
 	}
 	
-	//-----DRIVER SECTION-------------------------------------------------------------------------------------
 	// Lists all the drivers in the system--------------------------------------------------------------------
 	public void driverList() {
 		for (Driver driver : drivers) {
@@ -78,8 +73,6 @@ public class Depot implements Serializable {
 		drivers.add(driver);
 	}
 	
-	
-	//-----SCHEDULE SECTION-----------------------------------------------------------------------------------
 	// Lists the COMPLETED work schedules-------------------------------------------------------------------------------
 	public void completedScheduleList() {
 		System.out.printf("%-10s %-10s %10s %17s %12s %n", "Client", "Start Date", "End Date", "Assigned to", "Vehicle");
@@ -106,7 +99,6 @@ public class Depot implements Serializable {
 			}
 	}
 	
-	
 	// Allows us to add a CREATED work schedule to array------------------------------------------------------
 	public void addCreatedSchedule(WorkSchedule ws) {
 		workSchedules.add(ws);
@@ -117,15 +109,7 @@ public class Depot implements Serializable {
 		completedSchedules.add(ws);
 	}
 	
-	
-	//-----AREA SECTION---------------------------------------------------------------------------------------
-	// This gets a depot area---------------------------------------------------------------------------------
-	public String getDepotArea() {
-		return depotArea;
-	}
-	
 	// Getters and Setters
-	
 	// Getting a specific vehicle
 	public Vehicle getVehicle(String regNo) {
 		for (Vehicle veh : vehicles) {
@@ -192,6 +176,11 @@ public class Depot implements Serializable {
 	// Gets COMPLETED schedules-------------------------------------------------------------------------------
 	public List<WorkSchedule>getCompletedSchedules() {
 		return completedSchedules;
+	}
+	
+	// This gets a depot area---------------------------------------------------------------------------------
+	public String getDepotArea() {
+		return depotArea;
 	}
 	
 }

@@ -325,6 +325,19 @@ public class OnlineSystem {
 		} while (!exit);
 	}
 	
+	// Ensuring username's are not duplicated----------------------------------------------------------------
+	public boolean isUserNameUnique(String userName) {
+		ArrayList<Driver> drivers;
+		for (Depot depot : depots) {
+			drivers = depot.getDrivers();
+			for (Driver d : drivers) {
+				if (userName.equals(d.userName)) {
+					return false;
+				}
+			}
+		} return true;
+	}
+	
 	//---------SCHEDULE MENU------------------------------------------------------------------------------
 	// This method allows us to create a schedule---------------------------------------------------------
 	public void createSchedule() {
@@ -556,6 +569,19 @@ public class OnlineSystem {
 		
 	}
 	
+	// Ensuring registration numbers are not duplicated------------------------------------------------------
+	public boolean isRegistrationUnique(String registration) {
+		List<Vehicle> vehicles;
+		for (Depot depot : depots) {
+			vehicles = depot.getVehicles();
+			for (Vehicle v : vehicles) {
+				if (registration.equals(v.regNo)) {
+					return false;
+				}
+			}
+		} return true;
+	}
+	
 	// Method for re-assigning a vehicle to another depot----------------------------------------------------
 	public void reAssignVehicle() {
 		String selectVehicle;
@@ -616,6 +642,13 @@ public class OnlineSystem {
 		} while (!exit);
 	}
 	
+	public void depotList() {
+		for (Depot depot : depots) {
+			System.out.println(depot);
+		}
+	}
+	
+	// Getters and Setters
 	public Depot getDepot() {
 		return depot;
 	}
@@ -630,38 +663,6 @@ public class OnlineSystem {
 	
 	public void setDepot(String s) throws Exception {
 		depot = new Depot(s);
-	}
-	
-	public void depotList() {
-		for (Depot depot : depots) {
-			System.out.println(depot);
-		}
-	}
-	
-	// Ensuring username's are not duplicated----------------------------------------------------------------
-	public boolean isUserNameUnique(String userName) {
-		ArrayList<Driver> drivers;
-		for (Depot depot : depots) {
-			drivers = depot.getDrivers();
-			for (Driver d : drivers) {
-				if (userName.equals(d.userName)) {
-					return false;
-				}
-			}
-		} return true;
-	}
-	
-	// Ensuring registration numbers are not duplicated------------------------------------------------------
-	public boolean isRegistrationUnique(String registration) {
-		List<Vehicle> vehicles;
-		for (Depot depot : depots) {
-			vehicles = depot.getVehicles();
-			for (Vehicle v : vehicles) {
-				if (registration.equals(v.regNo)) {
-					return false;
-				}
-			}
-		} return true;
 	}
 	
 }

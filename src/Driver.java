@@ -9,16 +9,7 @@ public class Driver implements Serializable {
 	public Depot depot;
 	private WorkSchedule sched;
 	
-	// Making constructors------------------------------------------------------------------------------------
-   // public Driver(String userName, String passWord, boolean assigned, boolean isManager) throws Exception {
-    	//this.userName = userName.trim();
-    	//this.passWord = passWord.trim();
-    	//this.assigned = assigned;
-    	//this.isManager = isManager;
-    	//this.sched = null;
-    	//this.depot = null;
-   // }
-    
+	// Constructors
     public Driver(String userName, String passWord, boolean assigned, boolean isManager, Depot area) {
     	this.userName = userName.trim();
     	this.passWord = passWord.trim();
@@ -28,10 +19,11 @@ public class Driver implements Serializable {
     	this.depot = area;
     }
     
-    public boolean isAvailable() {
-    	return assigned;
+    public String toString() {
+    	return String.format("%s", userName);
     }
     
+    // Getters and Setters
     public boolean getIsManager() {
     	return isManager;
     }
@@ -51,8 +43,9 @@ public class Driver implements Serializable {
     public void setAssigned (boolean set) {
     	assigned = set;
     }
-    public String toString() {
-    	return String.format("%s", userName);
+    
+    public boolean isAvailable() {
+    	return assigned;
     }
 
 }

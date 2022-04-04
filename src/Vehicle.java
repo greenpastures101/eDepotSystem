@@ -22,6 +22,11 @@ public abstract class Vehicle implements Serializable {
         
     }
     
+    // Format-------------------------------------------------------------------------------------------------
+    public String toString() {
+    	return make + " " + model + " " + regNo + " " + weight + this.getClass().getSimpleName() + " " + driver + " " + workSchedule;
+    }
+    
     // Checks that the vehicle is available or not------------------------------------------------------------
     public boolean isVehicleAvailable() {
         return assigned;
@@ -32,7 +37,9 @@ public abstract class Vehicle implements Serializable {
     	this.depot = dep;
     }
     
-    // Gets the reg no of the vehicle-------------------------------------------------------------------------
+    // Getters and Setters
+    
+    // Gets the registration number of the vehicle-------------------------------------------------------------------------
     public String getRegNo() {
     	return regNo;
     }
@@ -47,10 +54,6 @@ public abstract class Vehicle implements Serializable {
     	this.driver = driver;
     }
     
-    public void setWorkSchedule(WorkSchedule workSchedule) {
-    	this.workSchedule = workSchedule;
-    }
-    
     // Gets driver--------------------------------------------------------------------------------------------
     public Driver getDriver() {
     	return driver;
@@ -60,8 +63,8 @@ public abstract class Vehicle implements Serializable {
     	return workSchedule;
     }
     
-    // Format-------------------------------------------------------------------------------------------------
-    public String toString() {
-    	return make + " " + model + " " + regNo + " " + weight + this.getClass().getSimpleName() + " " + driver + " " + workSchedule;
+    public void setWorkSchedule(WorkSchedule workSchedule) {
+    	this.workSchedule = workSchedule;
     }
+    
 }
