@@ -8,22 +8,29 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * @author Katlynn Chrans 904788
+ * @author Adam Al-Najjar 678948
+ * Class contains the menus used to navigate the methods for system function
+ */
 
+/**
+ * Main method which calls the initial log in menu
+ */
 public class OnlineSystem {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		new OnlineSystem().logInMenu();
-		//new OnlineSystem().mainMenu();
 	}
+	
 	public OnlineSystem() throws Exception {
 		deSerialize();
-		// Adding drivers
-
-		//WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-04"), LocalDate.parse("2022-04-05"));
-		//depots.get(0).addCreatedSchedule(boJack);
 		
-		//WorkSchedule mrPeanutButter = new WorkSchedule("MrPeanutButter", LocalDate.parse("2022-04-07"), LocalDate.parse("2022-04-08"));
-		//depots.get(1).addCreatedSchedule(mrPeanutButter);
+		// NOTE: Debugging
+		/*
+		WorkSchedule boJack = new WorkSchedule("BoJack", LocalDate.parse("2022-04-04"), LocalDate.parse("2022-04-05"));
+		depots.get(0).addCreatedSchedule(boJack);
+		*/
 		
 		/*
 		depots.add(new Depot("LPool")); // 0
@@ -45,9 +52,6 @@ public class OnlineSystem {
 		depots.get(2).addDriver(new Driver("Aragorn", "aragorn1", true, false, getDepot("MChester"))); // available, not manager
 		depots.get(2).addDriver(new Driver("Gollum", "gollum1", false, false, getDepot("MChester"))); // not available, not manager
 
-
-		
-		// Adding vehicles
 		Vehicle lPoolTanker = new Tanker("Volvo", "XC90", 14000.5, "WM15GUK", getDepot("LPool"), 2000.2, "Petrol");
 		Vehicle lPoolTanker2 = new Tanker("Tesla", "69", 32000.5, "ET10EVN", getDepot("LPool"), 3100.7, "Rocket Fuel");
 		Vehicle lPoolTruck = new Truck("BMW", "G7", 10000.5, "JK19DFF", getDepot("LPool"), 1300.4);
@@ -78,21 +82,38 @@ public class OnlineSystem {
 		depots.get(2).addVehicle(mChesterTanker2);
 		depots.get(2).addVehicle(mChesterTanker3);
 		depots.get(2).addVehicle(mChesterTruck);
-		depots.get(2).addVehicle(mChesterTruck2); */
-		
+		depots.get(2).addVehicle(mChesterTruck2);
+		*/
 	}	
 	
-	// File reading and Scanner-------------------------------------------------------------------------------
+	/**
+	 * File path
+	 */
 	private final String PATH = "C:\\Users\\katec\\eclipse-workspace-OOSD\\OOSD CW Two\\src\\";
 	
-	// Scanner------------------------------------------------------------------------------------------------
+	/**
+	 * Creating scanner and ArrayList for depot info
+	 */
 	public final Scanner S = new Scanner(System.in);
 	private Driver driver;
 	private List<Depot> depots = new ArrayList<Depot>();
 	private Depot depot;
 	private int depotNo = 0;
 	
-	// Initial menu-------------------------------------------------------------------------------------------
+	/**
+	 * Method lists depots
+	 */
+	public void depotList() {
+		for (Depot depot : depots) {
+			System.out.println(depot);
+		}
+	}
+	
+	/**
+	 * Method for the initial log in menu allows user to log in or exit
+	 * When exit is selected, any changes made during run are saved before termination of run
+	 * @throws Exception
+	 */
 	public void logInMenu() throws Exception {
 		String choice;
 		
@@ -115,6 +136,9 @@ public class OnlineSystem {
 		System.exit(0);
 	}
 	
+	/**
+	 * Method allows for serialization of objects before system terminates
+	 */
 	private void serialize() {
 		ObjectOutputStream oos;
 		try {
@@ -127,6 +151,9 @@ public class OnlineSystem {
 		}
 	}
 	
+	/**
+	 * Methods allows for deserialization of objects before system start
+	 */
 	private void deSerialize() {
 		ObjectInputStream ois;
 		try {
@@ -138,7 +165,10 @@ public class OnlineSystem {
 		}
 	}
 	
-	// Method for log in--------------------------------------------------------------------------------------
+	/**
+	 * Method for a user to log in
+	 * @throws Exception
+	 */
 	public void logIn() throws Exception {
 		driver = null;
 		String uName;
@@ -166,7 +196,11 @@ public class OnlineSystem {
 		mainMenu();
 	}
 	
-	// Main interface menu, more options for managers---------------------------------------------------------
+	/**
+	 * Method outputs one of two menus depending is user logging in is a manger or not
+	 * Menu contains all options within the system and calls other needed methods
+	 * @throws Exception
+	 */
 	private void mainMenu () throws Exception {
 		String choice;
 		
@@ -221,7 +255,11 @@ public class OnlineSystem {
 		}
 	}
 	
-	// Schedule Menu for Managers----------------------------------------------------------------------------
+	/**
+	 * Method which stores all the options to do with schedules
+	 * Only viewable by managers, when quitting it directs back to the main menu
+	 * @throws Exception
+	 */
 	public void scheduleOptions() throws Exception {
 		String choice;
 		
@@ -263,7 +301,11 @@ public class OnlineSystem {
 		} while (true);
 	}
 	
-	// Vehicle Menu for managers--------------------------------------------------------------------------
+	/**
+	 * Method which stores all the options to do with vehicles
+	 * Only viewable by managers, when quitting it directs back to the main menu
+	 * @throws Exception
+	 */
 	public void vehicleOptions() throws Exception {
 		String choice;
 
@@ -293,7 +335,9 @@ public class OnlineSystem {
 		} while (true);
 	}
 	
-	// This method allows us to add a new driver to the system--------------------------------------------
+	/**
+	 * Method allows manager to add a new driver to the system (ArrayList)
+	 */
 	public void addDriver() {
 		String name;
 		String password;
@@ -325,7 +369,11 @@ public class OnlineSystem {
 		} while (!exit);
 	}
 	
-	// Ensuring username's are not duplicated----------------------------------------------------------------
+	/**
+	 * Method ensures a driver is not adding using a duplicate name
+	 * @param userName username used to create driver, searches to see if exists already
+	 * @return returns false if a duplication is not found, returns true is duplication is found
+	 */
 	public boolean isUserNameUnique(String userName) {
 		ArrayList<Driver> drivers;
 		for (Depot depot : depots) {
@@ -338,7 +386,9 @@ public class OnlineSystem {
 		} return true;
 	}
 	
-	// This method allows us to create a schedule---------------------------------------------------------
+	/**
+	 * Method creates and adds a schedule to the system (ArrayList)
+	 */
 	public void createSchedule() {
 		String client;
 		String startDate;
@@ -365,13 +415,17 @@ public class OnlineSystem {
 		} while (true);
 	}
 	
-	// Method for sorting the schedules----------------------------------------------------------------------
+	/**
+	 * Method sorts the schedules in the system (ArrayList) by dates
+	 */
 	public void sortSchedule() {
 		depot.getSchedules().sort(Comparator.comparing(WorkSchedule::getStartDate));
 		depot.getCompletedSchedules().sort(Comparator.comparing(WorkSchedule::getStartDate));
 	}
 	
-	// Method for setting a created schedule--------------------------------------------------------------
+	/**
+	 * Method sets a created schedule to a driver
+	 */
 	public void setSchedule() {
 		String client;
 		String driver;
@@ -419,7 +473,11 @@ public class OnlineSystem {
 		}
 	}
 	
-	// Allows us to assign a vehicle to a set work schedule--------------------------------------------------
+	/**
+	 * Method used to assign a vehicle and driver to a created schedule
+	 * @param driver driver to set schedule to
+	 * @param ws schedule to be set
+	 */
 	public void assignVehicle(Driver driver, WorkSchedule ws) {
 		boolean exit = false;
 		
@@ -449,7 +507,10 @@ public class OnlineSystem {
 		} while (exit);
 	}
 	
-	// Method for setting a schedule as complete-------------------------------------------------------------
+	/**
+	 * Method to set a schedule as complete
+	 * @throws Exception
+	 */
 	public void setScheduleAsComplete() throws Exception {
 		String clientName;
 		WorkSchedule ws;
@@ -497,7 +558,11 @@ public class OnlineSystem {
 		}
 	}
 	
-	// Allows us to remove a vehicle from a schedule---------------------------------------------------------
+	/**
+	 * Removes a vehicle from a schedule which has been set as complete
+	 * This is so the vehicle becomes available for new schedules
+	 * @param ws schedule vehicle is removed from
+	 */
 	public void removeVehicle(WorkSchedule ws) {
 		Vehicle v = depot.getVehicle(ws.getVehicleAssigned());
 		v.setDriver(null);
@@ -505,9 +570,10 @@ public class OnlineSystem {
 		return;
 	}
 	
-	//---------VEHICLE MENU----------------------------------------------------------------------------------
-	
-	// Method for adding a vehicle to the system-------------------------------------------------------------
+	/**
+	 * Method allows a manager to add a new vehicle to the system (ArrayList)
+	 * @throws Exception
+	 */
 	public void addVehicle() throws Exception {
 		String vehicleMake;
 		String vehicleModel;
@@ -568,7 +634,11 @@ public class OnlineSystem {
 		
 	}
 	
-	// Ensuring registration numbers are not duplicated------------------------------------------------------
+	/**
+	 * Method ensures a vehicle is not adding using a duplicate registration number
+	 * @param registration registration used to create vehicle, searches to see if exists already
+	 * @return returns false if a duplication is not found, returns true is duplication is found
+	 */
 	public boolean isRegistrationUnique(String registration) {
 		List<Vehicle> vehicles;
 		for (Depot depot : depots) {
@@ -581,7 +651,9 @@ public class OnlineSystem {
 		} return true;
 	}
 	
-	// Method for re-assigning a vehicle to another depot----------------------------------------------------
+	/**
+	 * Method reassigns a vehicle to a new depot
+	 */
 	public void reAssignVehicle() {
 		String selectVehicle;
 		String selectDepot = "";
@@ -641,17 +713,20 @@ public class OnlineSystem {
 		} while (!exit);
 	}
 	
-	public void depotList() {
-		for (Depot depot : depots) {
-			System.out.println(depot);
-		}
-	}
-	
-	// Getters and Setters
+	// GETTERS AND SETTERS //
+	/**
+	 * Method gets the depot value
+	 * @return returns the depot
+	 */
 	public Depot getDepot() {
 		return depot;
 	}
 	
+	/**
+	 * Method gets info on specific depot by area
+	 * @param area area of specific depot
+	 * @return returns a depot is parameter match is of the same area
+	 */
 	public Depot getDepot(String area) {
 		for (Depot depot : depots) {
 			if (area.equals(depot.getDepotArea())) {
@@ -660,6 +735,11 @@ public class OnlineSystem {
 		} return null;
 	}
 	
+	/**
+	 * Method renames a specific depot
+	 * @param s name of depot
+	 * @throws Exception
+	 */
 	public void setDepot(String s) throws Exception {
 		depot = new Depot(s);
 	}
